@@ -1,50 +1,9 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>lptest — ランディングページ</title>
-  <meta name="description" content="lptest のランディングページ。">
-
-  <!-- ▼▼▼ GA4 (Google Analytics 4) ▼▼▼
-       測定 ID: G-9VKL5C6TKN（GA4 データストリーム）
-       ストリームID 15192264943 とは別物なので注意。 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9VKL5C6TKN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-9VKL5C6TKN');
-  </script>
-  <!-- ▲▲▲ GA4 ▲▲▲ -->
-
-  <style>
-    :root { --accent: #2563eb; --ink: #111827; --muted: #6b7280; --bg: #ffffff; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-      color: var(--ink); background: var(--bg); line-height: 1.7;
-    }
-    .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
-    header.hero { padding: 88px 0 64px; text-align: center; }
-    .hero h1 { font-size: clamp(28px, 6vw, 44px); margin: 0 0 16px; letter-spacing: .02em; }
-    .hero p { font-size: clamp(16px, 3vw, 19px); color: var(--muted); margin: 0 0 32px; }
-    .cta {
-      display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
-      font-weight: 700; padding: 16px 32px; border-radius: 10px; border: 0; cursor: pointer;
-      font-size: 17px; transition: transform .05s ease, opacity .15s ease;
-    }
-    .cta:hover { opacity: .92; }
-    .cta:active { transform: translateY(1px); }
-    section { padding: 48px 0; border-top: 1px solid #eef0f3; }
-    section h2 { font-size: 22px; margin: 0 0 16px; }
-    ul.points { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
-    ul.points li { padding-left: 28px; position: relative; }
-    ul.points li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
-    footer { padding: 40px 0 64px; text-align: center; color: var(--muted); font-size: 14px; }
-  </style>
-</head>
-<body>
+---
+// LP トップ。旧 index.html の内容をそのまま移植（見た目・GA4・CTA イベントは不変）。
+// スタイルは元が <head> 直下のグローバル指定だったため is:global で同等に再現。
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="lptest — ランディングページ" description="lptest のランディングページ。">
   <header class="hero">
     <div class="wrap">
       <h1>lptest へようこそ</h1>
@@ -70,7 +29,33 @@
     <div class="wrap">© lptest</div>
   </footer>
 
-  <script>
+  <style is:global>
+    :root { --accent: #2563eb; --ink: #111827; --muted: #6b7280; --bg: #ffffff; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      color: var(--ink); background: var(--bg); line-height: 1.7;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+    header.hero { padding: 88px 0 64px; text-align: center; }
+    .hero h1 { font-size: clamp(28px, 6vw, 44px); margin: 0 0 16px; letter-spacing: .02em; }
+    .hero p { font-size: clamp(16px, 3vw, 19px); color: var(--muted); margin: 0 0 32px; }
+    .cta {
+      display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
+      font-weight: 700; padding: 16px 32px; border-radius: 10px; border: 0; cursor: pointer;
+      font-size: 17px; transition: transform .05s ease, opacity .15s ease;
+    }
+    .cta:hover { opacity: .92; }
+    .cta:active { transform: translateY(1px); }
+    section { padding: 48px 0; border-top: 1px solid #eef0f3; }
+    section h2 { font-size: 22px; margin: 0 0 16px; }
+    ul.points { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+    ul.points li { padding-left: 28px; position: relative; }
+    ul.points li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    footer { padding: 40px 0 64px; text-align: center; color: var(--muted); font-size: 14px; }
+  </style>
+
+  <script is:inline>
     // CTA クリックを GA4 のコンバージョン候補イベントとして送信。
     // lp-manager の cv_event_name にはこの "generate_lead" を設定する想定。
     document.getElementById('cta').addEventListener('click', function () {
@@ -81,5 +66,4 @@
       alert('お問い合わせありがとうございます（デモ）');
     });
   </script>
-</body>
-</html>
+</Layout>

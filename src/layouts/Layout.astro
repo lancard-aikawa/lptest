@@ -1,0 +1,33 @@
+---
+// 全ページ共通レイアウト。<head> と GA4 を **ここ 1 か所** に集約する。
+// index も各ブログ記事もこの Layout を通るので、計測タグの二重管理が起きない。
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'lptest' } = Astro.props;
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- ▼▼▼ GA4 (Google Analytics 4) — 全ページ共通 ▼▼▼
+         測定 ID: G-9VKL5C6TKN（GA4 データストリーム）
+         ストリームID 15192264943 / プロパティID 476572377 とは別物なので注意。 -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-9VKL5C6TKN"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9VKL5C6TKN');
+    </script>
+    <!-- ▲▲▲ GA4 ▲▲▲ -->
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
