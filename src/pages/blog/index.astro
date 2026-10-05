@@ -14,7 +14,7 @@ const posts = (await getCollection('blog', ({ data }) => import.meta.env.PROD ? 
     <ul class="post-list">
       {posts.map((p) => (
         <li>
-          <a href={`${base}/blog/${p.slug}/`}>{p.data.title ?? p.slug}</a>
+          <a href={`${base}/blog/${p.id}/`}>{p.data.title ?? p.id}</a>
           {p.data.description && <span class="desc">{p.data.description}</span>}
         </li>
       ))}

@@ -1,18 +1,18 @@
 ---
 // ブログ記事ページ（/lptest/blog/{slug}/）。1 記事＝1 ページ。
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   // 公開ビルドでは draft を除外（プレビュー用 preview-draft-*.md も公開されない）。
   const posts = await getCollection('blog', ({ data }) => import.meta.env.PROD ? !data.draft : true);
-  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { post } = Astro.props;
-const { Content } = await post.render();
-const title = post.data.title ?? post.slug;
+const { Content } = await render(post);
+const title = post.data.title ?? post.id;
 ---
 <Layout title={`${title} — lptest`} description={post.data.description ?? post.data.excerpt ?? ''}>
   <main class="wrap">

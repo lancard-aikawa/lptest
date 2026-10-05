@@ -1,10 +1,12 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 // ブログのコンテンツコレクション。lp-manager がここ（src/content/blog/）へ
 // Markdown を書き出す前提。frontmatter の揺れに強いよう title 以外は任意にし、
 // 未知キーはそのまま無視される（zod 非 strict）。
 const blog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string().optional(),
     description: z.string().optional(),
